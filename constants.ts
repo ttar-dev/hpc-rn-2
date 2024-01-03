@@ -16,7 +16,7 @@ export const QUESTIONS = [
   {
     id: 2,
     question: 'Which color is a banana?',
-    choices: ['Purple', 'Orange', 'Green', 'Blue'],
+    choices: ['Purple', 'Yellow', 'Green', 'Blue'],
     correctAnswer: 'Yellow',
   },
   {

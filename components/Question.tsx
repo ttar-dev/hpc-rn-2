@@ -32,8 +32,10 @@ export default function Question(props: QuestionProps) {
             onPress={() => {
               if (q.id) {
                 form.setValue(`questions.${q.id}.answer`, choice);
-                if (choice === q.answer) {
+                if (choice === q.correctAnswer) {
                   form.setValue('point', form.watch('point') + 1);
+                } else {
+                  form.setValue('point', form.watch('point') - 1);
                 }
               }
             }}
