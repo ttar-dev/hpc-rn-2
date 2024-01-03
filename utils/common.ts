@@ -4,5 +4,5 @@ export function shuffleArray(array: any[]) {
     [array[i], array[j]] = [array[j], array[i]];
   }
 
-  return array;
+  return array || [];
 }

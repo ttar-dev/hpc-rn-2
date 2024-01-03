@@ -6,20 +6,19 @@ import {useNavigation} from '@react-navigation/native';
 import {shuffleArray} from '../utils/common';
 import {FormProvider, useForm} from 'react-hook-form';
 
-type AnswerType = {
-  id: number;
+interface QuestionAnsType extends QuestionType {
   answer: string;
-};
-interface FieldInputs {
+}
+export interface FieldInputs {
   nickname: string;
-  answers: AnswerType[];
+  questions: QuestionAnsType[];
 }
 
 export default function QuestionScreen() {
   const methods = useForm<FieldInputs>({
     defaultValues: {
       nickname: '',
-      answers: [],
+      questions: shuffleArray(QUESTIONS),
     },
   });
 
@@ -42,9 +41,10 @@ export default function QuestionScreen() {
             style={{gap: 20, flex: 1}}
             showsVerticalScrollIndicator={false}>
             <View style={{gap: 8, paddingVertical: 16}}>
-              {shuffleArray(QUESTIONS).map((q: QuestionType, i: number) => (
+              {methods.watch('questions')?.map((q: QuestionType, i: number) => (
                 <Question key={i} q={q} choiceNo={i + 1} />
               ))}
+              <Text>{JSON.stringify(methods.watch('questions'), null, 2)}</Text>
             </View>
           </ScrollView>
         </FormProvider>
