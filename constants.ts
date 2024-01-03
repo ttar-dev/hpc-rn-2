@@ -3,6 +3,7 @@ export interface QuestionType {
   question: string;
   choices: string[];
   correctAnswer: string;
+  answer?: string;
 }
 
 export const QUESTIONS = [

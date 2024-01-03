@@ -20,6 +20,7 @@ interface QuestionAnsType extends QuestionType {
 export interface FieldInputs {
   nickname: string;
   questions: QuestionAnsType[];
+  point: number;
 }
 
 export default function QuestionScreen() {
@@ -27,20 +28,14 @@ export default function QuestionScreen() {
     defaultValues: {
       nickname: '',
       questions: shuffleArray(QUESTIONS),
+      point: 0,
     },
   });
 
   const navigation = useNavigation<any>();
 
   const onSubmit = (data: FieldInputs) => {
-    let point = 0;
-    data.questions.map((q: QuestionAnsType) => {
-      if (q.answer === q.correctAnswer) {
-        point = point + 1;
-      }
-    });
-
-    setScore({nickname: data.nickname, score: point});
+    setScore({nickname: data.nickname, score: data.point});
     methods.reset();
     navigation.navigate('SCORES');
   };
