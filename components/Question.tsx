@@ -1,4 +1,4 @@
-import {Text} from '@rneui/themed';
+import {Button, Text} from '@rneui/themed';
 import {View} from 'react-native';
 import {QuestionType} from '../constants';
 
@@ -12,9 +12,14 @@ export default function Question(props: QuestionProps) {
 
   return (
     <View>
-      <Text style={{fontSize: 18, fontWeight: '500'}}>
+      <Text style={{fontSize: 22, fontWeight: '500'}}>
         {choiceNo}. {q?.question}
       </Text>
+      <View style={{gap: 8, paddingVertical: 8}}>
+        {q.choices.map((choice: string, index: number) => (
+          <Button key={index} title={choice} type="outline" />
+        ))}
+      </View>
     </View>
   );
 }
