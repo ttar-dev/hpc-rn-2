@@ -4,8 +4,19 @@ import {QUESTIONS, QuestionType} from '../constants';
 import {Header, Icon} from '@rneui/themed';
 import {useNavigation} from '@react-navigation/native';
 import {shuffleArray} from '../utils/common';
+import {FormProvider, useForm} from 'react-hook-form';
+
+interface FieldInputs {
+  nickname: string;
+}
 
 export default function QuestionScreen() {
+  const methods = useForm<FieldInputs>({
+    defaultValues: {
+      nickname: '',
+    },
+  });
+
   const navigation = useNavigation<any>();
   return (
     <>
@@ -18,16 +29,19 @@ export default function QuestionScreen() {
           </Pressable>
         }
       />
+
       <View style={[styles.container]}>
-        <ScrollView
-          style={{gap: 20, flex: 1}}
-          showsVerticalScrollIndicator={false}>
-          <View style={{gap: 8, paddingVertical: 16}}>
-            {shuffleArray(QUESTIONS).map((q: QuestionType, i: number) => (
-              <Question key={i} q={q} choiceNo={i + 1} />
-            ))}
-          </View>
-        </ScrollView>
+        <FormProvider {...methods}>
+          <ScrollView
+            style={{gap: 20, flex: 1}}
+            showsVerticalScrollIndicator={false}>
+            <View style={{gap: 8, paddingVertical: 16}}>
+              {shuffleArray(QUESTIONS).map((q: QuestionType, i: number) => (
+                <Question key={i} q={q} choiceNo={i + 1} />
+              ))}
+            </View>
+          </ScrollView>
+        </FormProvider>
       </View>
     </>
   );
