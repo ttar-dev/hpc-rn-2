@@ -68,9 +68,9 @@ export const QUESTIONS = [
   },
   {
     id: 11,
-    question: '0x0=?',
-    choices: ['1', '0', '10', '1000'],
-    correctAnswer: '0',
+    question: '10x10=?',
+    choices: ['1', '100', '10', '1000'],
+    correctAnswer: '100',
   },
   {
     id: 12,
@@ -104,9 +104,9 @@ export const QUESTIONS = [
   },
   {
     id: 17,
-    question: '1-1=?',
-    choices: ['0', '1', '2', '3'],
-    correctAnswer: '0',
+    question: '10-1=?',
+    choices: ['9', '1', '2', '3'],
+    correctAnswer: '9',
   },
   {
     id: 18,

@@ -41,6 +41,7 @@ export default function QuestionScreen() {
     });
 
     setScore({nickname: data.nickname, score: point});
+    methods.reset();
     navigation.navigate('SCORES');
   };
 

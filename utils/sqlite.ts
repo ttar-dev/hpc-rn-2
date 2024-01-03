@@ -40,3 +40,23 @@ export function setScore({nickname, score}: {nickname: string; score: number}) {
     },
   );
 }
+
+export function getLeader() {
+  return new Promise((resolve, reject) => {
+    db.transaction(
+      tx => {
+        tx.executeSql(
+          'SELECT * FROM scores ORDER BY score DESC;',
+          [],
+          (_, {rows}) => {
+            resolve(rows._array);
+          },
+        );
+      },
+
+      () => {
+        reject([]);
+      },
+    );
+  });
+}
