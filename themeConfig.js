@@ -7,16 +7,18 @@ const theme = createTheme({
 
   components: {
     Input: {
-      inputStyle: {fontFamily: 'BodyText', paddingHorizontal: 8},
+      inputStyle: {paddingHorizontal: 16},
       inputContainerStyle: {
-        backgroundColor: 'rgba(0, 0, 0, .025)',
+        backgroundColor: 'rgba(0, 0, 0, .05)',
+        borderColor: 'transparent',
         height: 56,
+        borderRadius: 28 / 2,
       },
       labelStyle: {fontSize: 16, paddingBottom: 8},
     },
     Button: {
       titleStyle: {fontSize: 16, fontWeight: 'bold'},
-      buttonStyle: {borderRadius: 28, height: 56},
+      buttonStyle: {borderRadius: 28 / 2, height: 56},
     },
   },
   mode: 'light',
