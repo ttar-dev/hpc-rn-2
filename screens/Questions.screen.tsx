@@ -1,10 +1,18 @@
-import {Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {
+  Alert,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import Question from '../components/Question';
 import {QUESTIONS, QuestionType} from '../constants';
-import {Header, Icon} from '@rneui/themed';
+import {Button, Header, Icon} from '@rneui/themed';
 import {useNavigation} from '@react-navigation/native';
 import {shuffleArray} from '../utils/common';
 import {FormProvider, useForm} from 'react-hook-form';
+import {setScore} from '../utils/sqlite';
 
 interface QuestionAnsType extends QuestionType {
   answer: string;
@@ -23,6 +31,19 @@ export default function QuestionScreen() {
   });
 
   const navigation = useNavigation<any>();
+
+  const onSubmit = (data: FieldInputs) => {
+    let point = 0;
+    data.questions.map((q: QuestionAnsType) => {
+      if (q.answer === q.correctAnswer) {
+        point = point + 1;
+      }
+    });
+
+    setScore({nickname: data.nickname, score: point});
+    navigation.navigate('SCORES');
+  };
+
   return (
     <>
       <Header
@@ -44,9 +65,29 @@ export default function QuestionScreen() {
               {methods.watch('questions')?.map((q: QuestionType, i: number) => (
                 <Question key={i} q={q} choiceNo={i + 1} />
               ))}
-              <Text>{JSON.stringify(methods.watch('questions'), null, 2)}</Text>
             </View>
           </ScrollView>
+          <View style={{paddingVertical: 16}}>
+            <Button
+              onPress={() =>
+                Alert.prompt('Enter nick name', 'Enter a nickname to save.', [
+                  {
+                    text: 'Cancel',
+                    onPress: () => console.log('Cancel Pressed'),
+                    style: 'cancel',
+                  },
+                  {
+                    text: 'OK',
+                    onPress: nickname => {
+                      methods.setValue('nickname', nickname);
+                      onSubmit(methods.getValues());
+                    },
+                  },
+                ])
+              }>
+              Results
+            </Button>
+          </View>
         </FormProvider>
       </View>
     </>

@@ -17,3 +17,26 @@ export function openDatabase() {
 }
 
 export const db = openDatabase();
+
+export function setScore({nickname, score}: {nickname: string; score: number}) {
+  return db.transaction(
+    tx => {
+      tx.executeSql(
+        'SELECT * FROM scores WHERE nickname = ?;',
+        [nickname],
+        (_, {rows: {length}}) => {
+          if (!length) {
+            tx.executeSql(
+              'INSERT INTO scores (nickname, score) values (?,?);',
+              [nickname, score],
+            );
+          }
+        },
+      );
+    },
+    error => {
+      console.log(error);
+      return true;
+    },
+  );
+}
