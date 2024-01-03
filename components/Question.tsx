@@ -30,7 +30,9 @@ export default function Question(props: QuestionProps) {
                 : 'outline'
             }
             onPress={() => {
-              form.setValue(`questions.${q.id}.answer`, choice);
+              if (q.id) {
+                form.setValue(`questions.${q.id}.answer`, choice);
+              }
             }}
           />
         ))}
