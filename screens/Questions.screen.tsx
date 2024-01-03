@@ -6,14 +6,20 @@ import {useNavigation} from '@react-navigation/native';
 import {shuffleArray} from '../utils/common';
 import {FormProvider, useForm} from 'react-hook-form';
 
+type AnswerType = {
+  id: number;
+  answer: string;
+};
 interface FieldInputs {
   nickname: string;
+  answers: AnswerType[];
 }
 
 export default function QuestionScreen() {
   const methods = useForm<FieldInputs>({
     defaultValues: {
       nickname: '',
+      answers: [],
     },
   });
 
